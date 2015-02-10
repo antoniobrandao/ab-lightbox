@@ -27,7 +27,8 @@ module.exports = {
     {
     	console.log('createlightbox');
 
-    	$.extend( settings, options );
+		settings = extend(settings, options); // vanilla extend
+    	// $.extend( settings, options ); jquery extend
 
     	var w=window,
 		d=document,
@@ -184,3 +185,25 @@ var adjustViewPortLightbox = function()
 		lightbox_instance.style.top			= String((y / 2) - (lightbox_instance.offsetHeight / 2)) + 'px';
 	};
 }
+
+var extend = function ( defaults, options ) 
+{
+	var extended = {};
+	var prop;
+
+	for (prop in defaults) 
+	{
+		if (Object.prototype.hasOwnProperty.call(defaults, prop)) {
+			extended[prop] = defaults[prop];
+		}
+	}
+
+	for (prop in options) 
+	{
+		if (Object.prototype.hasOwnProperty.call(options, prop)) 
+		{
+			extended[prop] = options[prop];
+		}
+	}
+	return extended;
+};
