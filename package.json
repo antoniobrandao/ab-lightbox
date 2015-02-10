@@ -1,0 +1,19 @@
+{
+  "name": "ab-lightbox",
+  "version": "0.0.0",
+  "description": "Minimal Vanilla JS Lightbox",
+  "main": "index.js",
+  "keywords": [
+    "lightbox"
+  ],
+  "license": "MIT",
+  "author": "Antonio Brandao <antoniobrandaodesign@gmail.com> (http://www.antoniobrandao.com/)",
+  "homepage": "https://github.com/antoniobrandao/ab-lightbox",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antoniobrandao/ab-lightbox"
+  },
+  "bugs": {
+    "url": "https://github.com/antoniobrandao/ab-lightbox/issues"
+  }
+}
