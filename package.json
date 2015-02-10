@@ -1,6 +1,6 @@
 {
   "name": "ab-lightbox",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Minimal Vanilla JS Lightbox",
   "main": "index.js",
   "keywords": [

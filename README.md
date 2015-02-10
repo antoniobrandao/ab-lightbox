@@ -11,7 +11,16 @@ $ npm install ab-lightbox --save-dev
 ```
 
 ## Usage
+	
+	var lightbox = require('ab-lightbox');
+	
+	var options = 
+	{
+		imageURL 		: img_src,
+		globalPadding	: '100px 70px 100px 70px',
+	};
 
+	lightbox.createlightbox(options);
 
 ## License
 
