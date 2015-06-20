@@ -1,6 +1,6 @@
 # ab-lightbox
 
-Minimal Vanilla JS Lightbox.
+Simplest vanilla lightbox you can imagine.
 
 ## Install
 
@@ -12,24 +12,18 @@ $ npm install ab-lightbox --save-dev
 
 ## Usage
 	
-	// At the moment this script expects a wrapper DIV with the ID '#root-wrapper' to be present in the DOM
-	// This will be changed to be added via the options object
-
 	var lightbox = require('ab-lightbox');
 	
-	// all default settings are show below, add a custom image URL in the 'imageURL' parameter
+	// default settings are shown.
 
-	var options = 
-	{
+	lightbox.createlightbox({
+		imageURL 				: 'http://lorempixel.com/400/200/',
 		closeOnBGClick 			: true,
-		showImage 				: false,
-		imageURL 				: 'image_url_here',
-		bgOpacity				: 0.6,
 		fadeOut					: true,
-		globalPadding			: '100px 70px 100px 70px',
-	};
-
-	lightbox.createlightbox(options);
+		bgOpacity				: 0.6,
+		maxHeightPercent		: 0.6,
+		maxWidthPercent			: 0.6,
+	});
 
 ## License
 

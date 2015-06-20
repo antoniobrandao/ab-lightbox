@@ -1,4 +1,4 @@
-// 'use strict';
+'use strict';
 
 var lightbox_base_element;
 var lightbox_background;
@@ -12,23 +12,21 @@ var button_confirm_p;
 var button_cancel_p;
 
 var settings = {
-	closeOnBGClick 			: true,
-	showImage 				: false,
-	imageURL 				: '',
-	bgOpacity				: 0.6,
-	fadeOut					: true,
-	globalPadding			: '100px 70px 100px 70px',
+	imageURL 		: 'http://lorempixel.com/400/200/',
+	closeOnBGClick 	: true,
+	fadeOut			: true,
+	bgOpacity		: 0.6,
+	maxWidth		: 0.6, // 1 = 100%
+	maxHeight		: 0.6, // 1 = 100%
 };
-
 
 module.exports = {
 
     createlightbox: function(options)
     {
-    	console.log('createlightbox');
+    	// console.log('createlightbox');
 
 		settings = extend(settings, options); // vanilla extend
-    	// $.extend( settings, options ); jquery extend
 
     	var w=window,
 		d=document,
@@ -44,8 +42,8 @@ module.exports = {
 		var window_height_px	= String(window_height) + 'px';
 
         lightbox_background		= document.createElement('DIV');
-        lightbox_base_element		= document.createElement('DIV');
-        lightbox_img_element		= document.createElement('IMG');
+        lightbox_base_element	= document.createElement('DIV');
+        lightbox_img_element	= document.createElement('IMG');
         
         lightbox_base_element.addClass('ui-lightbox-image');
         lightbox_background.addClass('ui-lightbox-image-bg');
@@ -80,7 +78,10 @@ module.exports = {
         lightbox_img_element.style.borderRadius			= '2px';
 		lightbox_img_element.style.boxSizing			= 'border-box';
 
-		lightbox_img_element.style.padding 				= settings.globalPadding;
+		// lightbox_img_element.style.padding 				= settings.globalPadding;
+
+		lightbox_img_element.style.maxWidth 			= ( window_width * settings.maxWidth ) + 'px';
+		lightbox_img_element.style.maxHeight 			= ( window_height * settings.maxHeight ) + 'px';
 
 		lightbox_img_element.style.webkitTransition 	= 'all 0.5s';
 		lightbox_img_element.style.mozTransition 		= 'all 0.5s';
@@ -100,7 +101,7 @@ module.exports = {
 		lightbox_base_element.appendChild(lightbox_background);
 		lightbox_base_element.appendChild(lightbox_img_element);
 
-		document.getElementById('root-wrapper').appendChild(lightbox_base_element);
+		document.body.appendChild(lightbox_base_element);
 
 		lightbox_base_element.addEventListener('click', closelightbox);
 
@@ -119,7 +120,7 @@ var closelightbox = function()
 	removeViewportListeners();
 
 	var removeElement = function() {
-		document.getElementById('root-wrapper').removeChild(document.getElementById('ui-lightbox-image'));
+		document.body.removeChild(document.getElementById('ui-lightbox-image'));
 	}
 
 	if (settings.fadeOut) 
@@ -138,17 +139,15 @@ var handleImageLoaded = function()
 
 var addViewportListeners = function()
 {
-	console.log('addViewportListeners');
-	if(window.attachEvent) 			 	{ console.log('1'); window.attachEvent('onresize', 	adjustViewPortLightbox);
-	} else if(window.addEventListener) 	{ console.log('3'); window.addEventListener('resize', adjustViewPortLightbox, true);
+	if(window.attachEvent) 			 	{window.attachEvent('onresize', adjustViewPortLightbox);
+	} else if(window.addEventListener) 	{window.addEventListener('resize', adjustViewPortLightbox, true);
 	} else { 							//The browser does not support Javascript event binding
 	}
 }
 
 var removeViewportListeners = function()
 {
-	console.log('removeViewportListeners');
-	if(window.detachEvent)  				{ console.log('2'); window.detachEvent('onresize', 		adjustViewPortLightbox);
+	if(window.detachEvent)  				{ window.detachEvent('onresize', adjustViewPortLightbox);
 	} else if(window.removeEventListener) 	{ window.removeEventListener('resize', 	adjustViewPortLightbox);
 	} else { 								//The browser does not support Javascript event binding
 	}
@@ -163,7 +162,7 @@ var handleConfirmCallback = function()
 
 var adjustViewPortLightbox = function()
 {
-	console.log('addViewportListeners');
+	// console.log('addViewportListeners');
 
     var w=window,
 		d=document,
@@ -172,12 +171,9 @@ var adjustViewPortLightbox = function()
 		x=w.innerWidth||e.clientWidth||g.clientWidth,
 		y=w.innerHeight||e.clientHeight||g.clientHeight;
 
-	var lightbox_instance 					= document.getElementById('ui-lightbox-image-img');
+	var lightbox_instance = document.getElementById('ui-lightbox-image-img');
 	
 	if (lightbox_instance) {
-		// console.log('lightbox_instance.offsetWidth: ' + lightbox_instance.offsetWidth);
-		// console.log('lightbox_instance.offsetHeight: ' + lightbox_instance.offsetHeight);
-
 		lightbox_background.style.width		= String(x) + 'px';
 		lightbox_background.style.height	= String(y) + 'px';
 
