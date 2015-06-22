@@ -71,32 +71,33 @@ module.exports = {
 		lightbox_background.style.height				= window_height_px;
 		lightbox_background.style.backgroundColor 		= 'black';
 		lightbox_background.style.display				= 'block';
-		lightbox_background.style.opacity 				= String(settings.bgOpacity);
+		lightbox_background.style.opacity 				= 0;
 
 		lightbox_img_element.style.position				= 'fixed';
 
         lightbox_img_element.style.borderRadius			= '2px';
 		lightbox_img_element.style.boxSizing			= 'border-box';
+		lightbox_img_element.style.opacity				= 0;
 
 		// lightbox_img_element.style.padding 				= settings.globalPadding;
 
 		lightbox_img_element.style.maxWidth 			= ( window_width * settings.maxWidth ) + 'px';
 		lightbox_img_element.style.maxHeight 			= ( window_height * settings.maxHeight ) + 'px';
 
-		lightbox_img_element.style.webkitTransition 	= 'all 0.5s';
-		lightbox_img_element.style.mozTransition 		= 'all 0.5s';
-		lightbox_img_element.style.msTransition 		= 'all 0.5s';
-		lightbox_img_element.style.oTransition 			= 'all 0.5s';
+		// lightbox_img_element.style.webkitTransition 	= 'all 0.5s';
+		// lightbox_img_element.style.mozTransition 		= 'all 0.5s';
+		// lightbox_img_element.style.msTransition 		= 'all 0.5s';
+		// lightbox_img_element.style.oTransition 			= 'all 0.5s';
 
-		lightbox_background.style.webkitTransition 		= 'all 0.5s';
-		lightbox_background.style.mozTransition 		= 'all 0.5s';
-		lightbox_background.style.msTransition 			= 'all 0.5s';
-		lightbox_background.style.oTransition 			= 'all 0.5s';
+		// lightbox_background.style.webkitTransition 		= 'all 0.5s';
+		// lightbox_background.style.mozTransition 		= 'all 0.5s';
+		// lightbox_background.style.msTransition 			= 'all 0.5s';
+		// lightbox_background.style.oTransition 			= 'all 0.5s';
 
-		lightbox_base_element.style.webkitTransition 	= 'all 0.5s';
-		lightbox_base_element.style.mozTransition 		= 'all 0.5s';
-		lightbox_base_element.style.msTransition 		= 'all 0.5s';
-		lightbox_base_element.style.oTransition 		= 'all 0.5s';
+		// lightbox_base_element.style.webkitTransition 	= 'all 0.5s';
+		// lightbox_base_element.style.mozTransition 		= 'all 0.5s';
+		// lightbox_base_element.style.msTransition 		= 'all 0.5s';
+		// lightbox_base_element.style.oTransition 		= 'all 0.5s';
 
 		lightbox_base_element.appendChild(lightbox_background);
 		lightbox_base_element.appendChild(lightbox_img_element);
@@ -135,6 +136,31 @@ var closelightbox = function()
 var handleImageLoaded = function()
 {
 	adjustViewPortLightbox();
+
+	setTimeout(function()
+	{
+		lightbox_background.style.webkitTransition 		= 'all 0.5s';
+		lightbox_background.style.mozTransition 		= 'all 0.5s';
+		lightbox_background.style.msTransition 			= 'all 0.5s';
+		lightbox_background.style.oTransition 			= 'all 0.5s';
+
+		lightbox_base_element.style.webkitTransition 	= 'all 0.5s';
+		lightbox_base_element.style.mozTransition 		= 'all 0.5s';
+		lightbox_base_element.style.msTransition 		= 'all 0.5s';
+		lightbox_base_element.style.oTransition 		= 'all 0.5s';
+
+		lightbox_background.style.opacity 				= String(settings.bgOpacity);
+	}, 200);
+
+	setTimeout(function()
+	{
+		lightbox_img_element.style.webkitTransition 	= 'all 0.7s';
+		lightbox_img_element.style.mozTransition 		= 'all 0.7s';
+		lightbox_img_element.style.msTransition 		= 'all 0.7s';
+		lightbox_img_element.style.oTransition 			= 'all 0.7s';
+
+		lightbox_img_element.style.opacity				= 1;
+	}, 500);
 }
 
 var addViewportListeners = function()
@@ -162,8 +188,6 @@ var handleConfirmCallback = function()
 
 var adjustViewPortLightbox = function()
 {
-	// console.log('addViewportListeners');
-
     var w=window,
 		d=document,
 		e=d.documentElement,
