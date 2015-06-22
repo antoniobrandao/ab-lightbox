@@ -2,6 +2,15 @@
 
 Simplest vanilla lightbox you can imagine.
 
+Features:
+
+- black transparent background (with fade-in)
+- loads the given image URL and shows the loaded image (with fade-in)
+- limits the size of the image based on screen size and given constraints
+- closes the lightbox upon click / touchstart (with fade-out)
+- disables scroll while lightbox is visible
+- removes DOM elements and event listeners after lightbox is closed
+
 ## Install
 
 With [npm](http://npmjs.org) do:

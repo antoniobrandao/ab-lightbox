@@ -20,6 +20,10 @@ var settings = {
 	maxHeight		: 0.6, // 1 = 100%
 };
 
+// vars for scroll lock
+var scroll_lock = false;
+var keys = [37, 38, 39, 40];
+
 module.exports = {
 
     createlightbox: function(options)
@@ -79,25 +83,8 @@ module.exports = {
 		lightbox_img_element.style.boxSizing			= 'border-box';
 		lightbox_img_element.style.opacity				= 0;
 
-		// lightbox_img_element.style.padding 				= settings.globalPadding;
-
 		lightbox_img_element.style.maxWidth 			= ( window_width * settings.maxWidth ) + 'px';
 		lightbox_img_element.style.maxHeight 			= ( window_height * settings.maxHeight ) + 'px';
-
-		// lightbox_img_element.style.webkitTransition 	= 'all 0.5s';
-		// lightbox_img_element.style.mozTransition 		= 'all 0.5s';
-		// lightbox_img_element.style.msTransition 		= 'all 0.5s';
-		// lightbox_img_element.style.oTransition 			= 'all 0.5s';
-
-		// lightbox_background.style.webkitTransition 		= 'all 0.5s';
-		// lightbox_background.style.mozTransition 		= 'all 0.5s';
-		// lightbox_background.style.msTransition 			= 'all 0.5s';
-		// lightbox_background.style.oTransition 			= 'all 0.5s';
-
-		// lightbox_base_element.style.webkitTransition 	= 'all 0.5s';
-		// lightbox_base_element.style.mozTransition 		= 'all 0.5s';
-		// lightbox_base_element.style.msTransition 		= 'all 0.5s';
-		// lightbox_base_element.style.oTransition 		= 'all 0.5s';
 
 		lightbox_base_element.appendChild(lightbox_background);
 		lightbox_base_element.appendChild(lightbox_img_element);
@@ -105,20 +92,52 @@ module.exports = {
 		document.body.appendChild(lightbox_base_element);
 
 		lightbox_base_element.addEventListener('click', closelightbox);
+		lightbox_base_element.addEventListener('touchstart', closelightbox);
 
 		addViewportListeners();
 		adjustViewPortLightbox();
+
+		disableScroll();
 
 		setTimeout(function()
 		{
 			lightbox_base_element.style.opacity	= '1';
 		}, 100)
     },
+
+}
+
+// call to disable scroll where possible
+var disableScroll = function()
+{
+	if (window.addEventListener) {
+		window.addEventListener('DOMMouseScroll', wheel, false);
+	}
+
+	window.onmousewheel = document.onmousewheel = wheel;
+	document.onkeydown = keydown;
+	scroll_lock = true;
+}
+
+// call to re-enable scroll
+var enableScroll = function()
+{
+	if (window.removeEventListener) {
+		window.removeEventListener('DOMMouseScroll', wheel, false);
+	}
+
+	window.onmousewheel = document.onmousewheel = document.onkeydown = null;  
+	scroll_lock = false;
 }
 
 var closelightbox = function()
 {
 	removeViewportListeners();
+
+	enableScroll();
+
+	lightbox_base_element.removeEventListener('click', 		closelightbox);
+	lightbox_base_element.removeEventListener('touchstart', closelightbox);
 
 	var removeElement = function() {
 		document.body.removeChild(document.getElementById('ui-lightbox-image'));
@@ -204,6 +223,27 @@ var adjustViewPortLightbox = function()
 		lightbox_instance.style.left		= String((x / 2) - (lightbox_instance.offsetWidth / 2)) + 'px';
 		lightbox_instance.style.top			= String((y / 2) - (lightbox_instance.offsetHeight / 2)) + 'px';
 	};
+}
+
+
+var preventDefault = function(e) {
+	e = e || window.event;
+	if (e.preventDefault)
+		e.preventDefault();
+	e.returnValue = false;  
+}
+
+var keydown = function(e) {
+	for (var i = keys.length; i--;) {
+		if (e.keyCode === keys[i]) {
+			preventDefault(e);
+			return;
+		}
+	}
+}
+
+var wheel = function(e) {
+	preventDefault(e);
 }
 
 var extend = function ( defaults, options ) 
