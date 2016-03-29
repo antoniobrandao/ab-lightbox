@@ -1,7 +1,5 @@
 'use strict';
 
-require('ab-element');
-
 var lightbox_base_element;
 var lightbox_background;
 var lightbox_img_element;
@@ -45,9 +43,9 @@ module.exports = {
         lightbox_base_element	= document.createElement('DIV');
         lightbox_img_element	= document.createElement('IMG');
         
-        lightbox_base_element.addClass('ui-lightbox-image');
-        lightbox_background.addClass('ui-lightbox-image-bg');
-        lightbox_img_element.addClass('ui-lightbox-image-img');
+        lightbox_base_element.classList.add('ui-lightbox-image');
+        lightbox_background.classList.add('ui-lightbox-image-bg');
+        lightbox_img_element.classList.add('ui-lightbox-image-img');
 
 		lightbox_base_element.setAttribute('id', 		'ui-lightbox-image');
 		lightbox_background.setAttribute('id', 			'ui-lightbox-image-bg');
