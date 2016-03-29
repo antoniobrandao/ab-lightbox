@@ -1,4 +1,6 @@
-// 'use strict';
+'use strict';
+
+require('ab-element');
 
 var lightbox_base_element;
 var lightbox_background;
@@ -20,13 +22,10 @@ var settings = {
 	globalPadding	: '100px 70px 100px 70px',
 };
 
-
 module.exports = {
 
     createlightbox: function(options)
     {
-    	console.log('createlightbox');
-
 		settings = extend(settings, options); // vanilla extend
 
     	var w=window,
@@ -137,7 +136,6 @@ var handleImageLoaded = function()
 
 var addViewportListeners = function()
 {
-	console.log('addViewportListeners');
 	if(window.attachEvent) 			 	{ window.attachEvent('onresize', 	adjustViewPortLightbox);
 	} else if(window.addEventListener) 	{ window.addEventListener('resize', adjustViewPortLightbox, true);
 	} else { 							//The browser does not support Javascript event binding
@@ -146,7 +144,6 @@ var addViewportListeners = function()
 
 var removeViewportListeners = function()
 {
-	console.log('removeViewportListeners');
 	if(window.detachEvent)  				{ window.detachEvent('onresize', 		adjustViewPortLightbox);
 	} else if(window.removeEventListener) 	{ window.removeEventListener('resize', 	adjustViewPortLightbox);
 	} else { 								//The browser does not support Javascript event binding
@@ -161,8 +158,6 @@ var handleConfirmCallback = function()
 
 var adjustViewPortLightbox = function()
 {
-	console.log('addViewportListeners');
-
     var w=window,
 		d=document,
 		e=d.documentElement,

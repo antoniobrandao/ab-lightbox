@@ -1,6 +1,6 @@
 {
   "name": "ab-lightbox",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Simplest vanilla lightbox you can imagine.",
   "main": "index.js",
   "keywords": [
@@ -15,5 +15,8 @@
   },
   "bugs": {
     "url": "https://github.com/antoniobrandao/ab-lightbox/issues"
+  },
+  "dependencies": {
+    "ab-element": "^1.4.4"
   }
 }
